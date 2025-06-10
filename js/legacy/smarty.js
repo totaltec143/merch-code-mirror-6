@@ -1,4 +1,4 @@
-smarty.js// This is the CodeMirror 5 Smarty mode, adapted for our use.
+// This is the CodeMirror 5 Smarty mode, adapted for our use.
 export const smarty_mode = {
     name: "smarty",
     startState: function() {
