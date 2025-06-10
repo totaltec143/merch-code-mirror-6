@@ -1,0 +1,13 @@
+# Dependencies - These can be reinstalled with 'npm install'
+node_modules/
+
+# Build Output - This can be recreated with 'npm run build'
+dist/
+
+# Log files
+npm-debug.log*
+*.log
+
+# Common OS-generated files
+.DS_Store
+Thumbs.db
