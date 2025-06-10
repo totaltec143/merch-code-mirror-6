@@ -1,7 +1,7 @@
 /* MerchStudio Editor Engine
  * Copyright (c) 2025 Michael Lewis White & MerchStudio Inc.
  * This file bundles CodeMirror and exposes a simple API.
- * @version js/editor-factory.js - 1.1 - 06-10-2025 - totaltec
+ * @version js/editor-factory.js - 1.2 - 06-10-2025 - totaltec
  */
 
 import { EditorState, StateEffect } from '@codemirror/state';
@@ -25,6 +25,13 @@ import { merch_ide_theme } from './theme.js';
 import { get_language_support } from './languages.js';
 
 const MerchIDE_Editor = {
+    /**
+     * Creates a new CodeMirror 6 instance.
+     * @param {HTMLElement} parent_element The DOM element to attach to.
+     * @param {function} on_change_callback A function to call
+     * when the editor content changes.
+     * @returns {EditorView} The created editor view instance.
+     */
     create: function(parent_element, on_change_callback) {
         const core_setup = [
             lineNumbers(),
@@ -54,31 +61,12 @@ const MerchIDE_Editor = {
                 }
             }
         );
-        
-        // We add the Ctrl+S/Cmd+S keyboard shortcut for saving.
-        const save_keymap = keymap.of([{
-            key: "Mod-s",
-            run: (view) => {
-                // We reference a global save function that will be
-                // defined in the main merchide.js file.
-                if (typeof merch_ide !== 'undefined' &&
-                    typeof merch_ide.save_active_file === 'function'
-                ) {
-                    // Check if the save button is enabled before saving.
-                    if (!merch_ide.elements.save_button.disabled) {
-                        merch_ide.save_active_file();
-                    }
-                }
-                return true;
-            }
-        }]);
 
         let start_state = EditorState.create({
             doc: '',
             extensions: [
                 core_setup,
                 change_listener,
-                save_keymap,
                 [] // Placeholder for language
             ]
         });
@@ -89,14 +77,22 @@ const MerchIDE_Editor = {
         });
     },
 
+    /**
+     * Helper to get the language support extension.
+     * We expose this so the main app doesn't need to know
+     * about the language map.
+     * @param {string} file_type The file extension.
+     * @returns {LanguageSupport|[]}
+     */
     get_language: function(file_type) {
         return get_language_support(file_type) || [];
     }
 };
 
-// FINAL CHANGE: We expose core CM6 objects on our API so the
-// main merchide.js file can use them for advanced operations.
+// We expose core CM6 objects on our API so the main app can
+// use them for advanced operations like changing state.
 MerchIDE_Editor.EditorState = EditorState;
 MerchIDE_Editor.StateEffect = StateEffect;
+MerchIDE_Editor.keymap = keymap; // Expose keymap for save shortcut
 
 window.MerchIDE_Editor = MerchIDE_Editor;
