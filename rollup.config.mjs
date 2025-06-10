@@ -13,8 +13,9 @@ const banner_content = `/**
  * This bundle contains CodeMirror, distributed under the MIT license,
  * and other third-party software with their own licenses.
  *
+ * @link    https://github.com/totaltec143/merch-code-mirror-6
  * @version 1.0.0
- * @built ${new Date().toUTCString()}
+ * @built   ${new Date().toUTCString()}
  * @license Proprietary / MIT (see licenses of bundled software)
  */`;
 
