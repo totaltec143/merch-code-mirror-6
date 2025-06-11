@@ -17,7 +17,7 @@ export const php_keywords = [
 // A partial list of common PHP functions.
 export const php_functions = [
     "array_map", "array_filter", "array_reduce", "array_key_exists",
-    "count", "in_array", "is_array", "implode", "explode",
+    "count", "error_log", "in_array", "is_array", "implode", "explode",
     "json_encode", "json_decode", "isset", "empty", "unset",
     "str_replace", "strlen", "strtolower", "strtoupper", "substr",
     "date", "time", "microtime", "phpinfo", "header", "session_start",
