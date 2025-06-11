@@ -16,8 +16,8 @@ import {
 } from './php-completions.js';
 
 // Import our manually created legacy modes
-import smarty_mode from './legacy/smarty.js';
-import apache_mode from './legacy/apache.js';
+import { smarty_mode } from './legacy/smarty.js';
+import { apache_mode } from './legacy/apache.js';
 
 // Create a single, powerful completion source for PHP
 const php_completion_source = completeFromList([
