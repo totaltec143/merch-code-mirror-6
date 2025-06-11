@@ -32,8 +32,11 @@ const MerchIDE_Editor = {
      * when the editor content changes.
      * @returns {EditorView} The created editor view instance.
      */
-    create: function(parent_element, on_change_callback) {
-        const core_setup = [
+    create_core_setup: function() {
+        // We get keymap from the bundle's global object.
+        const { keymap } = window.MerchIDE_Editor;
+
+        return [
             lineNumbers(),
             highlightActiveLineGutter(),
             history(),
@@ -53,21 +56,22 @@ const MerchIDE_Editor = {
                 indentWithTab
             ])
         ];
+    },
 
+    // Create function.
+    create: function(parent_element, base_setup, on_change_callback) {
         const change_listener = EditorView.updateListener.of(
             (update) => {
-                if (update.docChanged) {
-                    on_change_callback();
-                }
+                if (update.docChanged) { on_change_callback(); }
             }
         );
 
         let start_state = EditorState.create({
-            doc: '',
+            doc: '# Welcome to the MerchStudio IDE!\n# Select a file to begin.',
             extensions: [
-                core_setup,
+                base_setup,
                 change_listener,
-                [] // Placeholder for language
+                [] // Placeholder for initial language
             ]
         });
 
@@ -93,6 +97,6 @@ const MerchIDE_Editor = {
 // use them for advanced operations like changing state.
 MerchIDE_Editor.EditorState = EditorState;
 MerchIDE_Editor.StateEffect = StateEffect;
-MerchIDE_Editor.keymap = keymap; // Expose keymap for save shortcut
+MerchIDE_Editor.keymap = keymap;
 
 window.MerchIDE_Editor = MerchIDE_Editor;
