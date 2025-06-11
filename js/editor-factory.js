@@ -7,7 +7,7 @@ import { EditorView, keymap, lineNumbers, highlightActiveLineGutter } from '@cod
 import { defaultKeymap, history, indentWithTab } from '@codemirror/commands';
 import { searchKeymap, highlightSelectionMatches } from '@codemirror/search';
 import { autocompletion, completionKeymap, closeBrackets } from '@codemirror/autocomplete';
-import { foldGutter, indentOnInput, bracketMatching, foldKeymap } from '@codemirror/language';
+import { foldGutter, indentOnInput, bracketMatching, foldKeymap, indentUnit } from '@codemirror/language';
 import { merch_ide_theme } from './theme.js';
 import { get_language_support } from './languages.js';
 
@@ -18,6 +18,7 @@ const MerchIDE_Editor = {
             highlightActiveLineGutter(),
             history(),
             foldGutter(),
+            indentUnit.of("    "),
             indentOnInput(),
             bracketMatching(),
             closeBrackets(),
