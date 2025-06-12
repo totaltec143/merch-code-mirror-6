@@ -1,5 +1,5 @@
 /* MerchStudio Editor Engine
- * @version js/editor-factory.js - 3.3 - 06-12-2025 - totaltec143
+ * @version js/editor-factory.js - 3.3 - 06-12-2025 - Gemini
  */
 
 import {
@@ -29,8 +29,9 @@ import {
 } from './languages.js';
 
 /**
- * Creates a ViewPlugin that draws a vertical ruler at a given column.
- * This is our own simple, reusable extension.
+ * Creates a ViewPlugin that draws a full-height vertical ruler.
+ * This dynamically adjusts the ruler's height to match the
+ * editor's full scrollable content height.
  * @param {number} column The column number to draw the ruler at.
  * @returns {ViewPlugin} The CodeMirror ViewPlugin.
  */
@@ -41,6 +42,7 @@ const ruler = (column) => {
         }
 
         update(update) {
+            // We update the ruler if the document or viewport changes.
             if (update.docChanged || update.viewportChanged) {
                 this.decorations = this.get_decos(update.view);
             }
@@ -49,22 +51,28 @@ const ruler = (column) => {
         get_decos(view) {
             const char_width = view.defaultCharacterWidth;
             const left = column * char_width;
+            // We get the full scrollable height of the content.
+            const content_height = view.contentDOM.scrollHeight;
 
             const ruler_deco = Decoration.widget({
+                // We pass the calculated height into our widget's constructor.
                 widget: new(class extends WidgetType {
+                    constructor(height) {
+                        super();
+                        this.height = height;
+                    }
                     toDOM() {
                         const r = document.createElement("div");
                         r.className = "cm-ruler";
                         r.style.left = `${left}px`;
+                        // The widget now sets its own height dynamically.
+                        r.style.height = `${this.height}px`;
                         return r;
                     }
-                })(),
+                })(content_height),
                 side: -1,
             });
 
-            // We place the widget at the start of the visible part of
-            // the document. The absolute positioning in our CSS will
-            // handle the rest.
             const from = view.viewport.from;
             return Decoration.set([ruler_deco.range(from)]);
         }
