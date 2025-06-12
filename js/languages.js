@@ -12,7 +12,6 @@ import { completeFromList } from '@codemirror/autocomplete';
 
 import { php_keywords, php_functions, php_constants } from './php-completions.js';
 import { smarty_mode } from './legacy/smarty.js';
-import { apache_mode } from './legacy/apache.js';
 
 // Create the custom completion source for PHP.
 const php_completion_extension = php().language.data.of({
@@ -39,7 +38,6 @@ const language_map = {
     xml: xml(),
     svg: xml(),
     yml: yaml(),
-    htaccess: StreamLanguage.define(apache_mode),
     tpl: StreamLanguage.define(smarty_mode)
 };
 
