@@ -4,7 +4,7 @@
 
 import { EditorState, StateEffect } from '@codemirror/state';
 import { EditorView, keymap, lineNumbers, highlightActiveLineGutter } from '@codemirror/view';
-import { defaultKeymap, history, indentWithTab } from '@codemirror/commands';
+import { defaultKeymap, history, indentWithTab, undo, redo } from '@codemirror/commands';
 import { searchKeymap, highlightSelectionMatches } from '@codemirror/search';
 import { autocompletion, completionKeymap, closeBrackets } from '@codemirror/autocomplete';
 import { foldGutter, indentOnInput, bracketMatching, foldKeymap, indentUnit } from '@codemirror/language';
@@ -48,6 +48,8 @@ const MerchIDE_Editor = {
     }
 };
 
+MerchIDE_Editor.undo = undo;
+MerchIDE_Editor.redo = redo;
 MerchIDE_Editor.EditorView = EditorView; 
 MerchIDE_Editor.EditorState = EditorState;
 MerchIDE_Editor.StateEffect = StateEffect;
