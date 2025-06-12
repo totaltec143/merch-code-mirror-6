@@ -37,45 +37,36 @@ import {
 const ruler = (column) => {
     return ViewPlugin.fromClass(class {
         constructor(view) {
-            this.view = view;
-            this.decorations = this.get_decos();
+            this.decorations = this.get_decos(view);
         }
+
         update(update) {
             if (update.docChanged || update.viewportChanged) {
-                this.decorations = this.get_decos();
+                this.decorations = this.get_decos(update.view);
             }
         }
-        get_decos() {
-            const {
-                doc,
-                state
-            } = this.view;
-            const builder = new state.facet(Decoration.builder);
-            const char_width = this.view.defaultCharacterWidth;
+
+        get_decos(view) {
+            const char_width = view.defaultCharacterWidth;
             const left = column * char_width;
 
             const ruler_deco = Decoration.widget({
-                widget: new class extends Decoration.Widget {
+                widget: new(class extends Decoration.Widget {
                     toDOM() {
                         const r = document.createElement("div");
                         r.className = "cm-ruler";
                         r.style.left = `${left}px`;
                         return r;
                     }
-                }(),
-                side: -1
+                })(),
+                side: -1,
             });
 
-            // We add the ruler widget to the first visible line.
-            // CodeMirror will handle positioning it correctly for the view.
-            if (this.view.viewport.to > 0) {
-                const first_line = this.view.state.doc.lineAt(
-                    this.view.viewport.from
-                );
-                builder.add(first_line.from, first_line.from, ruler_deco);
-            }
-
-            return builder.finish();
+            // We place the widget at the start of the visible part of
+            // the document. The absolute positioning in our CSS will
+            // handle the rest.
+            const from = view.viewport.from;
+            return Decoration.set([ruler_deco.range(from)]);
         }
     }, {
         decorations: v => v.decorations
