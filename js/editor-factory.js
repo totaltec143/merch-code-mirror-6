@@ -2,14 +2,30 @@
  * @version js/editor-factory.js - 3.0 - 06-10-2025 - totaltec
  */
 
-import { EditorState, StateEffect } from '@codemirror/state';
-import { EditorView, keymap, lineNumbers, highlightActiveLineGutter } from '@codemirror/view';
-import { defaultKeymap, history, indentWithTab, undo, redo } from '@codemirror/commands';
-import { searchKeymap, highlightSelectionMatches } from '@codemirror/search';
-import { autocompletion, completionKeymap, closeBrackets } from '@codemirror/autocomplete';
-import { foldGutter, indentOnInput, bracketMatching, foldKeymap, indentUnit } from '@codemirror/language';
-import { merch_ide_theme } from './theme.js';
-import { get_language_support } from './languages.js';
+import {
+    EditorState, StateEffect
+} from '@codemirror/state';
+import {
+    EditorView, keymap, lineNumbers, highlightActiveLineGutter, drawSelection
+} from '@codemirror/view';
+import {
+    defaultKeymap, history, indentWithTab, undo, redo
+} from '@codemirror/commands';
+import {
+    searchKeymap, highlightSelectionMatches
+} from '@codemirror/search';
+import {
+    autocompletion, completionKeymap, closeBrackets
+} from '@codemirror/autocomplete';
+import {
+    foldGutter, indentOnInput, bracketMatching, foldKeymap, indentUnit
+} from '@codemirror/language';
+import {
+    merch_ide_theme
+} from './theme.js';
+import { 
+et_language_support
+} from './languages.js';
 
 const MerchIDE_Editor = {
     create_core_setup: function() {
@@ -53,6 +69,7 @@ MerchIDE_Editor.redo = redo;
 MerchIDE_Editor.EditorView = EditorView; 
 MerchIDE_Editor.EditorState = EditorState;
 MerchIDE_Editor.StateEffect = StateEffect;
-MerchIDE_Editor.keymap = keymap
+MerchIDE_Editor.keymap = keymap;
+MerchIDE_Editor.drawSelection = drawSelection;
 
 window.MerchIDE_Editor = MerchIDE_Editor;
