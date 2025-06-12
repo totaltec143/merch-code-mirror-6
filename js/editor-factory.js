@@ -1,5 +1,5 @@
 /* MerchStudio Editor Engine
- * @version js/editor-factory.js - 3.3 - 06-12-2025 - Gemini
+ * @version js/editor-factory.js - 3.3 - 06-12-2025 - totaltec143
  */
 
 import {
@@ -7,7 +7,7 @@ import {
 } from '@codemirror/state';
 import {
     EditorView, keymap, lineNumbers, highlightActiveLineGutter,
-    ViewPlugin, Decoration
+    ViewPlugin, Decoration, WidgetType
 } from '@codemirror/view';
 import {
     defaultKeymap, history, indentWithTab, undo, redo
@@ -51,7 +51,7 @@ const ruler = (column) => {
             const left = column * char_width;
 
             const ruler_deco = Decoration.widget({
-                widget: new(class extends Decoration.Widget {
+                widget: new(class extends WidgetType {
                     toDOM() {
                         const r = document.createElement("div");
                         r.className = "cm-ruler";
