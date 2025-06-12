@@ -35,15 +35,10 @@ const MerchIDE_Editor = {
         ];
     },
 
-    create: function(parent_element, base_setup, on_change_callback) {
-        const change_listener = EditorView.updateListener.of(
-            (update) => {
-                if (update.docChanged) { on_change_callback(); }
-            }
-        );
+    create: function(parent_element, extensions) {
         let start_state = EditorState.create({
             doc: '# Welcome to the MerchStudio IDE!\n# Select a file to begin.',
-            extensions: [ base_setup, change_listener, [] ]
+            extensions: extensions
         });
         return new EditorView({ state: start_state, parent: parent_element });
     },
@@ -53,8 +48,9 @@ const MerchIDE_Editor = {
     }
 };
 
+MerchIDE_Editor.EditorView = EditorView; 
 MerchIDE_Editor.EditorState = EditorState;
 MerchIDE_Editor.StateEffect = StateEffect;
-MerchIDE_Editor.keymap = keymap;
+MerchIDE_Editor.keymap = keymap
 
 window.MerchIDE_Editor = MerchIDE_Editor;
