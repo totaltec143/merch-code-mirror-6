@@ -1,6 +1,6 @@
 /* MerchStudio Editor Engine
- * @version js/editor-factory.js - 3.3 - 06-12-2025 - Gemini
- */
+* @version js/editor-factory.js - 3.5 - 07-11-2025 - Gemini
+*/
 
 import {
     EditorState, StateEffect
@@ -13,7 +13,7 @@ import {
     defaultKeymap, history, indentWithTab, undo, redo
 } from '@codemirror/commands';
 import {
-    searchKeymap, highlightSelectionMatches
+    search, searchKeymap, highlightSelectionMatches
 } from '@codemirror/search';
 import {
     autocompletion, completionKeymap, closeBrackets
@@ -21,6 +21,8 @@ import {
 import {
     foldGutter, indentOnInput, bracketMatching, foldKeymap, indentUnit
 } from '@codemirror/language';
+// Import the linting gutter
+import { lintGutter } from '@codemirror/lint';
 import {
     merch_ide_theme
 } from './theme.js';
@@ -86,6 +88,7 @@ const MerchIDE_Editor = {
         return [
             lineNumbers(),
             highlightActiveLineGutter(),
+            lintGutter(),
             history(),
             foldGutter(),
             indentUnit.of("    "),
@@ -94,6 +97,7 @@ const MerchIDE_Editor = {
             closeBrackets(),
             autocompletion(),
             highlightSelectionMatches(),
+            search(), 
             merch_ide_theme,
             EditorView.lineWrapping,
             keymap.of([
@@ -125,6 +129,6 @@ MerchIDE_Editor.EditorView = EditorView;
 MerchIDE_Editor.EditorState = EditorState;
 MerchIDE_Editor.StateEffect = StateEffect;
 MerchIDE_Editor.keymap = keymap;
-MerchIDE_Editor.ruler = ruler; // We export our new function
+MerchIDE_Editor.ruler = ruler;
 
 window.MerchIDE_Editor = MerchIDE_Editor;
