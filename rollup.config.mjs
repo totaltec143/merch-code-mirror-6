@@ -1,8 +1,7 @@
 import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 
-// We define the banner content here.
-// Using backticks (`) allows for a multi-line string.
+// Banner for the main bundle
 const banner_content = `/**
  * @preserve
  * MerchStudio CodeMirror 6 Bundle
@@ -19,20 +18,31 @@ const banner_content = `/**
  * @license Proprietary / MIT (see licenses of bundled software)
  */`;
 
-
-export default {
-    input: 'js/editor-factory.js',
-
-    output: {
-        // This is the new property we are adding.
-        banner: banner_content,
-
-        file: 'dist/codemirror.bundle.js',
-        format: 'iife'
+// We now export an array to define two separate builds
+export default [
+    // Build #1: The Main Editor Bundle
+    {
+        input: 'js/editor-factory.js',
+        output: {
+            banner: banner_content,
+            file: 'dist/codemirror.bundle.js',
+            format: 'iife'
+        },
+        plugins: [
+            resolve(),
+            terser()
+        ]
     },
-
-    plugins: [
-        resolve(),
-        terser()
-    ]
-};
+    // Build #2: The JavaScript Linter Worker
+    {
+        input: 'js/guardian.js',
+        output: {
+            file: 'dist/guardian.bundle.js', // We'll give it a new name
+            format: 'iife' // The worker needs to be a self-contained script
+        },
+        plugins: [
+            resolve(),
+            terser()
+        ]
+    }
+];
