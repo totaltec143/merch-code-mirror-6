@@ -21,14 +21,16 @@
     "@codemirror/lang-xml": "^6.0.2",
     "@codemirror/lang-yaml": "^6.1.1",
     "@codemirror/language": "^6.10.0",
-    "@codemirror/lint": "^6.4.2",
+    "@codemirror/lint": "^6.8.5",
     "@codemirror/search": "^6.5.5",
     "@codemirror/state": "^6.4.0",
-    "@codemirror/view": "^6.23.0"
+    "@codemirror/view": "^6.23.0",
+    "eslint-linter-browserify": "^9.30.1"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
-    "rollup": "^4.9.6"
+    "rollup": "^4.9.6",
+    "rollup-plugin-copy": "^3.5.0"
   }
 }
