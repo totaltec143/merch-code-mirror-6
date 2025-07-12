@@ -34,6 +34,10 @@ self.onmessage = (event) => {
                     Promise: "readonly",
                     Worker: "readonly",
                     URL: "readonly",
+                    localStorage: "readonly",
+                    clearInterval: "readonly",
+                    setInterval: "readonly",
+                    alert:  "readonly",
                     // Our application globals
                     nexus: "readonly",
                     merch_core: "readonly",
@@ -44,7 +48,8 @@ self.onmessage = (event) => {
                     merch_collect: "readonly",
                     merch_ide: "readonly",
                     merch_nexus: "readonly",
-                    merch_users: "readonly"
+                    merch_users: "readonly",
+                    merch_git: "readonly",
                 }
             },
             rules: {
