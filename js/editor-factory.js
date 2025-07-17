@@ -1,5 +1,5 @@
 /* MerchStudio Editor Engine
-* @version js/editor-factory.js - 3.5 - 07-11-2025 - Gemini
+* @version js/editor-factory.js - 3.6 - 07-17-2025 - Gemini
 */
 
 import {
@@ -23,6 +23,10 @@ import {
 } from '@codemirror/language';
 // Import the linting gutter
 import { lintGutter } from '@codemirror/lint';
+
+// --- Import MergeView ---
+import { MergeView } from "@codemirror/merge";
+
 import {
     merch_ide_theme
 } from './theme.js';
@@ -123,6 +127,7 @@ const MerchIDE_Editor = {
     }
 };
 
+// --- We export all necessary components on our global object ---
 MerchIDE_Editor.undo = undo;
 MerchIDE_Editor.redo = redo;
 MerchIDE_Editor.EditorView = EditorView;
@@ -130,5 +135,8 @@ MerchIDE_Editor.EditorState = EditorState;
 MerchIDE_Editor.StateEffect = StateEffect;
 MerchIDE_Editor.keymap = keymap;
 MerchIDE_Editor.ruler = ruler;
+
+// --- Export MergeView from our unified bundle ---
+MerchIDE_Editor.MergeView = MergeView;
 
 window.MerchIDE_Editor = MerchIDE_Editor;
