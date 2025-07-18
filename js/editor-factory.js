@@ -25,7 +25,7 @@ import {
 import { lintGutter } from '@codemirror/lint';
 
 // --- Import MergeView ---
-import { MergeView, collapseUnchanged } from "@codemirror/merge";
+import { MergeView } from "@codemirror/merge";
 
 import {
     merch_ide_theme
@@ -135,10 +135,9 @@ MerchIDE_Editor.EditorState = EditorState;
 MerchIDE_Editor.StateEffect = StateEffect;
 MerchIDE_Editor.keymap = keymap;
 MerchIDE_Editor.ruler = ruler;
-MerchIDE_Editor.Compartment = Compartment; // Export Compartment
+MerchIDE_Editor.Compartment = Compartment;
 
-// --- Export MergeView and its commands from our unified bundle ---
+// --- Export MergeView from our unified bundle ---
 MerchIDE_Editor.MergeView = MergeView;
-MerchIDE_Editor.collapseUnchanged = collapseUnchanged;
 
 window.MerchIDE_Editor = MerchIDE_Editor;
